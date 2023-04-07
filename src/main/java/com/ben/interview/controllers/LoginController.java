@@ -4,6 +4,7 @@ import com.ben.interview.helpers.GenericResponse;
 import com.ben.interview.models.User;
 import com.ben.interview.services.LoginService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "http://localhost:3000")
     public GenericResponse login(@RequestBody User user){
         List<User> users = null;
         try {

@@ -27,3 +27,13 @@ CREATE TABLE IF NOT EXISTS request_logs(
     status VARCHAR(20),
     PRIMARY KEY (id)
 );
+
+DROP TABLE IF EXISTS users;
+CREATE TABLE IF NOT EXISTS users(
+    id BIGINT AUTO_INCREMENT,
+    username VARCHAR(20),
+    password VARCHAR(20),
+    token VARCHAR,
+    status VARCHAR(20),
+    PRIMARY KEY (id)
+);

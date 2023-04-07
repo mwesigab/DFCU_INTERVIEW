@@ -16,3 +16,5 @@ VALUES ('4203207510', 'Benjamin', 'Mwesiga', 'ACTIVE'),
        ('4203207517', 'Charles', 'Babbage', 'ACTIVE'),
        ('4203207518', 'Elon', 'Musk', 'ACTIVE'),
        ('4203207519', 'Nikola', 'Tesla', 'ACTIVE');
+
+INSERT INTO USERS (USERNAME,PASSWORD,TOKEN,STATUS) VALUES ( 'admin', 'admin','Token','ACTIVE' );

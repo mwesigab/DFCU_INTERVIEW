@@ -1,6 +1,5 @@
 package com.ben.interview.services;
 
-import com.ben.interview.models.Loan;
 import com.ben.interview.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;

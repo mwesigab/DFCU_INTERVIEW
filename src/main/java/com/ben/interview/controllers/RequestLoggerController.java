@@ -1,11 +1,14 @@
 package com.ben.interview.controllers;
 
 import com.ben.interview.helpers.GenericResponse;
+import com.ben.interview.models.RequestLog;
 import com.ben.interview.services.RequestLoggerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 @RestController
@@ -15,6 +18,17 @@ public class RequestLoggerController{
 
     public RequestLoggerController(RequestLoggerService requestLoggerService) {
         this.requestLoggerService = requestLoggerService;
+    }
+
+    @GetMapping("logs")
+    public GenericResponse getLogs(){
+        try {
+            Iterable<RequestLog> list = requestLoggerService.getLogs();
+            return new GenericResponse(HttpStatus.OK.value(), "Success",list);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new GenericResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        }
     }
 
     @GetMapping("/logger")

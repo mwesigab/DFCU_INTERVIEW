@@ -5,6 +5,8 @@ import com.ben.interview.repositories.RequestLoggerRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RequestLoggerService {
     private final JdbcTemplate jdbcTemplate;
@@ -36,4 +38,7 @@ public class RequestLoggerService {
         }
     }
 
+    public Iterable<RequestLog> getLogs() {
+        return requestLoggerRepository.findAll();
+    }
 }

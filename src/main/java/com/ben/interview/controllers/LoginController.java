@@ -33,4 +33,17 @@ public class LoginController {
             return new GenericResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
         }
     }
+
+    @PostMapping("/logout")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public GenericResponse logout(@RequestBody User user){
+        Integer response;
+        try {
+            response= loginService.logout(user.getUsername(), user.getPassword());
+            return new GenericResponse(HttpStatus.OK.value(), "Success", response);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new GenericResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        }
+    }
 }

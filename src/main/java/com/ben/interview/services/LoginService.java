@@ -21,6 +21,7 @@ public class LoginService {
             user.setUsername(rs.getString("username"));
             user.setToken(rs.getString("token"));
             user.setStatus(rs.getString("status"));
+            user.setLoggedIn(true);
             return user;
         });
     }

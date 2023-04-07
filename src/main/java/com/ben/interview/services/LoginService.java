@@ -30,6 +30,6 @@ public class LoginService {
     }
 
     public Integer logout(String username, String password ){
-        return jdbcTemplate.update("UPDATE USERS SET LOGGED_IN=FALSE WHERE USERNAME='"+username+"' AND PASSWORD='"+password+"'");
+        return jdbcTemplate.update("UPDATE USERS SET LOGGED_IN=FALSE WHERE USERNAME='"+username+"'");
     }
 }

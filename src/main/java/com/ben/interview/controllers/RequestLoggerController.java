@@ -22,7 +22,7 @@ public class RequestLoggerController{
     }
 
     @GetMapping("logs")
-    @CrossOrigin(origins = "http://localhost:3000")
+    //@CrossOrigin(origins = "http://localhost:3000")
     public GenericResponse getLogs(){
         try {
             Iterable<RequestLog> list = requestLoggerService.getLogs();

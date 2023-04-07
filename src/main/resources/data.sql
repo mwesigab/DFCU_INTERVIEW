@@ -17,4 +17,4 @@ VALUES ('4203207510', 'Benjamin', 'Mwesiga', 'ACTIVE'),
        ('4203207518', 'Elon', 'Musk', 'ACTIVE'),
        ('4203207519', 'Nikola', 'Tesla', 'ACTIVE');
 
-INSERT INTO USERS (USERNAME,PASSWORD,TOKEN,STATUS) VALUES ( 'mwesiga@admin.com','admin','Token','ACTIVE' );
+INSERT INTO USERS (USERNAME,PASSWORD,TOKEN, LOGGED_IN, STATUS) VALUES ( 'mwesiga@admin.com','admin','Token', TRUE,'ACTIVE' );

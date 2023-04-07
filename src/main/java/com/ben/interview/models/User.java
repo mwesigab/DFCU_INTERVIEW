@@ -12,6 +12,8 @@ public class User {
     private String username;
     private String password;
     private String token;
+
+    private Boolean loggedIn;
     private String status;
 
     public BigInteger getId() {
@@ -52,5 +54,13 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Boolean getLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(Boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 }

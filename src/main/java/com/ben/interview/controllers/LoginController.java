@@ -23,7 +23,7 @@ public class LoginController {
     @PostMapping("/login")
     @CrossOrigin(origins = "http://localhost:3000")
     public GenericResponse login(@RequestBody User user){
-        List<User> users = null;
+        List<User> users;
         try {
             users=loginService.login(user.getUsername(),user.getPassword());
             if(users.size()==0) return new GenericResponse(HttpStatus.NOT_FOUND.value(), "The user with the specified credentials does not exist.");
@@ -40,7 +40,8 @@ public class LoginController {
         Integer response;
         try {
             response= loginService.logout(user.getUsername(), user.getPassword());
-            return new GenericResponse(HttpStatus.OK.value(), "Success", response);
+            if(response > 0) return new GenericResponse(HttpStatus.OK.value(), "Success", response);
+            else return new GenericResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Could not log out...");
         }catch (Exception e){
             e.printStackTrace();
             return new GenericResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());

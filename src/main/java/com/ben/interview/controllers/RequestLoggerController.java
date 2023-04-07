@@ -4,13 +4,9 @@ import com.ben.interview.helpers.GenericResponse;
 import com.ben.interview.models.RequestLog;
 import com.ben.interview.services.RequestLoggerService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-
 
 @RestController
 public class RequestLoggerController{
@@ -22,7 +18,6 @@ public class RequestLoggerController{
     }
 
     @GetMapping("logs")
-    //@CrossOrigin(origins = "http://localhost:3000")
     public GenericResponse getLogs(){
         try {
             Iterable<RequestLog> list = requestLoggerService.getLogs();

@@ -18,3 +18,12 @@ CREATE TABLE IF NOT EXISTS customers(
     status VARCHAR(20),
     PRIMARY KEY (id)
 );
+
+DROP TABLE IF EXISTS request_logs;
+CREATE TABLE IF NOT EXISTS request_logs(
+    id BIGINT AUTO_INCREMENT,
+    endpoint VARCHAR(255),
+    details VARCHAR,
+    status VARCHAR(20),
+    PRIMARY KEY (id)
+);

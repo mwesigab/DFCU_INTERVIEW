@@ -5,12 +5,15 @@ import com.ben.interview.models.Customer;
 import com.ben.interview.models.Loan;
 import com.ben.interview.services.CustomersService;
 import com.ben.interview.services.LoansService;
+import com.ben.interview.services.RequestLoggerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  *
@@ -20,10 +23,12 @@ public class LoansController {
 
     private final LoansService loansService;
     private final CustomersService customersService;
+    private final RequestLoggerService loggerService;
 
-    public LoansController(LoansService loansService, CustomersService customersService) {
+    public LoansController(LoansService loansService, CustomersService customersService, RequestLoggerService loggerService) {
         this.loansService = loansService;
         this.customersService = customersService;
+        this.loggerService = loggerService;
     }
 
     /*
@@ -33,7 +38,7 @@ public class LoansController {
     public GenericResponse get() throws Exception{
         Iterable<Loan> loans;
         try {
-            loans=loansService.get();
+            loans= loansService.get();
             return new GenericResponse(HttpStatus.OK.value(), "Success",loans);
         }catch (Exception e){
             e.printStackTrace();
@@ -47,11 +52,21 @@ public class LoansController {
     @GetMapping("/loans/{customerAcctNo}")
     public GenericResponse get(@PathVariable String customerAcctNo) throws Exception{
         try {
-            if(customerAcctNo.length()!=10) return new GenericResponse(HttpStatus.BAD_REQUEST.value(), "Invalid Account Number Length.");
-            if(!checkAcctNumber(customerAcctNo)) return new GenericResponse(HttpStatus.NOT_FOUND.value(), "Account Number Does Not Exist.");
+            if(customerAcctNo.length()!=10) {
+                loggerService.logger("/loans/"+customerAcctNo,"Invalid Account Number Length.","FAILED");
+                return new GenericResponse(HttpStatus.BAD_REQUEST.value(), "Invalid Account Number Length.");
+            }
+            if(!checkAcctNumber(customerAcctNo)) {
+                loggerService.logger("/loans/"+customerAcctNo,"Account Number Does Not Exist.","FAILED");
+                return new GenericResponse(HttpStatus.NOT_FOUND.value(), "Account Number Does Not Exist.");
+            }
 
             List<Loan> loans = loansService.get(customerAcctNo);
-            if(loans.size()==0) return new GenericResponse(HttpStatus.NOT_FOUND.value(),"No Loan Found.");
+            if(loans.size()==0) {
+                loggerService.logger("/loans/"+customerAcctNo,"No Loan Found.","NEGATIVE");
+                return new GenericResponse(HttpStatus.NOT_FOUND.value(), "No Loan Found.");
+            }
+            loggerService.logger("/loans/"+customerAcctNo,"Success","POSITIVE");
             return new GenericResponse(HttpStatus.OK.value(), "Success",loans);
         }catch (Exception e) {
             e.printStackTrace();

@@ -9,6 +9,7 @@ import com.ben.interview.services.RequestLoggerService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,6 @@ import java.util.stream.StreamSupport;
  */
 @RestController
 public class LoansController {
-
     private final LoansService loansService;
     private final CustomersService customersService;
     private final RequestLoggerService loggerService;

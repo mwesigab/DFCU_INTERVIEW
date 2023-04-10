@@ -6,6 +6,9 @@ import com.ben.interview.models.Loan;
 import com.ben.interview.services.CustomersService;
 import com.ben.interview.services.LoansService;
 import com.ben.interview.services.RequestLoggerService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,9 +34,7 @@ public class LoansController {
         this.loggerService = loggerService;
     }
 
-    /*
-    * Gets a list of loans
-    * */
+    @ApiOperation(value = "Get a list of loans available.", notes = "Returns a list of loans.")
     @GetMapping("/loans")
     public GenericResponse get() throws Exception{
         Iterable<Loan> loans;
@@ -46,9 +47,12 @@ public class LoansController {
         }
     }
 
-    /*
-    * Gets the status of a customer's loans
-    * */
+    @ApiOperation(value = "Get a customer's loan status by account number", notes = "Returns one or more loans as per the account number.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved"),
+            @ApiResponse(code = 400, message = "Invalid Account Number Length/No Loan Found."),
+            @ApiResponse(code = 404, message = "Not found - Account Number Does Not Exist.")
+    })
     @GetMapping("/loans/{customerAcctNo}")
     public GenericResponse get(@PathVariable String customerAcctNo) throws Exception{
         try {
@@ -74,9 +78,8 @@ public class LoansController {
         }
     }
 
-
     /*
-    * Checks if the account number exists in the database
+    * Checks the validity of the account number
     * */
     private Boolean checkAcctNumber(String customerAcctNumber) throws Exception{
         try {

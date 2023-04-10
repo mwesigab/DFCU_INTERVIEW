@@ -1,11 +1,11 @@
 package com.ben.interview.models;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.NotNull;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
@@ -15,6 +15,7 @@ public class Loan {
     @Id
     private BigInteger id;
     private String loanNo;
+
     @NotNull
     @Length(min = 10, max = 10)
     private String customerAcctNo;

@@ -5,8 +5,6 @@ import com.ben.interview.repositories.RequestLoggerRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class RequestLoggerService {
     private final JdbcTemplate jdbcTemplate;
@@ -15,10 +13,6 @@ public class RequestLoggerService {
     public RequestLoggerService(JdbcTemplate jdbcTemplate, RequestLoggerRepository requestLoggerRepository) {
         this.jdbcTemplate = jdbcTemplate;
         this.requestLoggerRepository = requestLoggerRepository;
-    }
-
-    public Integer get(){
-        return jdbcTemplate.queryForObject("SELECT COUNT(ID) FROM REQUEST_LOGS",Integer.class);
     }
 
     public Integer get(String status){

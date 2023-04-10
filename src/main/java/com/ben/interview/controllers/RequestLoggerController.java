@@ -3,6 +3,7 @@ package com.ben.interview.controllers;
 import com.ben.interview.helpers.GenericResponse;
 import com.ben.interview.models.RequestLog;
 import com.ben.interview.services.RequestLoggerService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ public class RequestLoggerController{
         this.requestLoggerService = requestLoggerService;
     }
 
+    @ApiOperation(value = "Get a list of request logs available.", notes = "Returns a list of request logs.")
     @GetMapping("logs")
     public GenericResponse getLogs(){
         try {
@@ -28,17 +30,8 @@ public class RequestLoggerController{
         }
     }
 
-    @GetMapping("/logger")
-    public GenericResponse get(){
-        try{
-            Integer response = requestLoggerService.get();
-            return new GenericResponse(HttpStatus.OK.value(), "Success",response);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+    @ApiOperation(value = "Get number of logs by status.", notes = "Returns the number of logs per status. Examples of statuses include FAILED (Failed Validations)," +
+            "POSITIVE (Number of positive requests/outstanding loans) and NEGATIVE (Number of negative requests/ no outstanding loans.)")
     @GetMapping("/logger/{status}")
     public GenericResponse Integer(@PathVariable  String status){
         try {

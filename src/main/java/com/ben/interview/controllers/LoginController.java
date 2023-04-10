@@ -3,8 +3,8 @@ package com.ben.interview.controllers;
 import com.ben.interview.helpers.GenericResponse;
 import com.ben.interview.models.User;
 import com.ben.interview.services.LoginService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +20,8 @@ public class LoginController {
         this.loginService = loginService;
     }
 
+    @ApiOperation(value = "Login a user", notes = "This logs in a user.")
     @PostMapping("/login")
-    @CrossOrigin(origins = "http://localhost:3000")
     public GenericResponse login(@RequestBody User user){
         List<User> users;
         try {
@@ -34,8 +34,8 @@ public class LoginController {
         }
     }
 
+    @ApiOperation(value = "Logout a user", notes = "Logs out a user ")
     @PostMapping("/logout")
-    @CrossOrigin(origins = "http://localhost:3000")
     public GenericResponse logout(@RequestBody User user){
         Integer response;
         try {

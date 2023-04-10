@@ -1,7 +1,7 @@
 package com.ben.interview.controllers;
 
-import com.ben.interview.models.Customer;
-import com.ben.interview.services.CustomersService;
+import com.ben.interview.models.RequestLog;
+import com.ben.interview.services.RequestLoggerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,42 +20,42 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(controllers = CustomersController.class)
+@WebMvcTest(controllers = RequestLoggerController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @ExtendWith(MockitoExtension.class)
-class CustomersControllerTest {
+class RequestLoggerControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    private Iterable<Customer> customers;
+    private Iterable<RequestLog> requestLogs;
     @MockBean
-    private CustomersService customersService;
-    private Customer customer;
+    private RequestLoggerService loggerService;
+    private RequestLog log;
     @BeforeEach
     public void init(){
-        customer = new Customer();
-        customer.setId(BigInteger.valueOf(1));
-        customer.setFirstName("Ben");
-        customer.setLastName("Mwesiga");
-        customer.setCustomerAcctNo("3204205610");
-        customer.setStatus("ACTIVE");
-        List<Customer> list = new ArrayList<>();
-        list.add(customer);
-        customers= list;
+        log = new RequestLog();
+        log.setId(BigInteger.valueOf(1));
+        log.setEndpoint("/logs");
+        log.setDetails("/Test Log Details");
+        log.setStatus("FAILED");
+
+        List<RequestLog> list = new ArrayList<>();
+        list.add(log);
+        requestLogs= list;
     }
     @Test
-    void testGetCustomersList() throws Exception{
-        when(customersService.get()).thenReturn(customers);
+    void testGetRequestLogsList() throws Exception{
+        when(loggerService.getLogs()).thenReturn(requestLogs);
 
-        mockMvc.perform(get("/customers"))
+        mockMvc.perform(get("/logs"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    void testGetCustomerByAccountNumber() throws Exception{
-        when(customersService.get(customer.getCustomerAcctNo())).thenReturn((List<Customer>) customers);
+    void testGetNumberOfLogs() throws Exception{
+       when(loggerService.get(log.getStatus())).thenReturn(1);
 
-        mockMvc.perform(get("/customers"))
+        mockMvc.perform(get("/logger/FAILED"))
                 .andExpect(status().isOk());
     }
 }

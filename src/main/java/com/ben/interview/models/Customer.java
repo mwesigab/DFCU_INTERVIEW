@@ -14,6 +14,16 @@ public class Customer {
     private String firstName;
     private String lastName;
 
+    private String nin;
+
+    public String getNin() {
+        return nin;
+    }
+
+    public void setNin(String nin) {
+        this.nin = nin;
+    }
+
     public BigInteger getId() {
         return id;
     }

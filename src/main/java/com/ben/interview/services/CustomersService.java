@@ -33,6 +33,7 @@ public class CustomersService {
             customer.setFirstName(rs.getString("first_name"));
             customer.setLastName(rs.getString("last_name"));
             customer.setStatus(rs.getString("status"));
+            customer.setNin(rs.getString("nin"));
             return customer;
         });
     }

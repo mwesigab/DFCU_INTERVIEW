@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS customers(
     first_name VARCHAR(25),
     last_name VARCHAR(25),
     status VARCHAR(20),
+    nin VARCHAR(20),
     PRIMARY KEY (id)
 );
 
